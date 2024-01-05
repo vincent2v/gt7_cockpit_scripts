@@ -23,7 +23,11 @@ def printAt(str, row=1, column=1, bold=0, underline=0, reverse=0):
             sys.stdout.write('{}0m'.format(pref))
         sys.stdout.write(str)
         sys.stdout.flush()
-        
+
+def clearscreen():
+    clear = lambda:os.system('clear') #clear screen
+    clear()                           #clear screen
+           
 class MySimpleTelemetryRecorder():
     def __init__(self, tc: TurismoClient):
         self.tc = tc
@@ -56,9 +60,10 @@ class MySimpleTelemetryRecorder():
 
 printAt("SPEED", 1, 1)
 printAt("RPM", 1,71)
-
+clearscreen()       
 
 if __name__ == "__main__":
+    clearscreen()
     try:
         tc = TurismoClient()
         tc.run()
@@ -69,12 +74,8 @@ if __name__ == "__main__":
         print("Maybe I'm on the wrong network")
         print(e)
     else:
-        clear = lambda:os.system('clear') #clear screen
-        clear()                           #clear screen
-
-        printAt("SPEED", 1, 1)
-        printAt("RPM", 1,35)
-
+      #  clear = lambda:os.system('clear') #clear screen
+       # clear()                           #clear screen
         ge = GameEvents(tc)
         mstr = MySimpleTelemetryRecorder(tc)
         ge.on_in_race.append(mstr.start)
